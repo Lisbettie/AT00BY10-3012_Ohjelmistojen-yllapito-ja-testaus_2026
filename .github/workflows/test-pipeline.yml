@@ -1,0 +1,27 @@
+name: Katsastusrobotti (CI Pipeline)
+
+# Milloin robotti herää? (Aina kun koodia työnnetään main-haaraan)
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-test:
+    # Minkä tietokoneen robotti vuokraa käyttöönsä pilvestä?
+    runs-on: ubuntu-latest
+
+    # Työvaiheet järjestyksessä
+    steps:
+      - name: 1. Hae koodi varastosta (Checkout)
+        uses: actions/checkout@v4
+
+      - name: 2. Asenna Node.js (Versio 22, kuten tehtävänannossa)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 3. Asenna aputyökalut (Jest ja Babel)
+        run: npm install
+
+      - name: 4. Aja testit ja tulosta kattavuusraportti
+        run: npm run coverage
