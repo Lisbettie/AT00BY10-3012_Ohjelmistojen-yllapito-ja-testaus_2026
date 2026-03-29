@@ -8,4 +8,8 @@ describe("add.js - Yhteenlaskun testaus", () => {
   test("laskee negatiiviset numerot oikein (-2 + -3 = -5)", () => {
     expect(add(-2, -3)).toBe(-5);
   });
+
+  test("käsittelee nollia oikein", () => {
+    expect(add(0, 0)).toBe(0);
+  });
 });
