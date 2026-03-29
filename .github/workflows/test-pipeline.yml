@@ -1,8 +1,10 @@
-name: Katsastusrobotti (CI Pipeline)
+name: CI Pipeline
 
 # Milloin robotti herää? (Aina kun koodia työnnetään main-haaraan)
 on:
   push:
+    branches: ["main"]
+  pull_request:
     branches: ["main"]
 
 jobs:
@@ -25,3 +27,8 @@ jobs:
 
       - name: 4. Aja testit ja tulosta kattavuusraportti
         run: npm run coverage
+
+      - name: 5. Lähetetään raportti Coverallsille
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
